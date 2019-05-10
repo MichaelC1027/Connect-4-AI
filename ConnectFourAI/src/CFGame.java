@@ -63,6 +63,7 @@ public class CFGame
 			}
 			System.out.println("|");
 		}
+		gameboard[5][3] = "X";
 		
 		
 	}
@@ -96,20 +97,7 @@ public class CFGame
 			}
 			else
 			{
-				System.out.println("Bot's Turn");
-				input = scan.nextInt();
-				if(input < 7 && input >= 0)
-				{
-					Symbol = "B";
-					PositionCheck(input);
-					p2 += 2;
-					turns += 1;
-					CheckWin();
-				}
-				else
-				{
-					TryAgain();
-				}			
+				BotTurn();
 			}
 		}
 		End();
@@ -268,19 +256,134 @@ public class CFGame
 	 * The only factor is the random factor
 	 */
 	
+	/*
+	 * The BotTurn Method
+	 * This Method will actually play the player 2 turn but randomly
+	 * this would be a random place
+	 */
 	public static void BotTurn()
 	{
+		//the variables for the random number
+		int max = 6;
+		int min = 0;
+		int range = max - min + 1;
 		
+		
+		System.out.println("Bot's Turn");
+		input = (int)(Math.random() * range + min)
+		if(input < 7 && input >= 0)
+		{
+			Symbol = "B";
+			PositionCheck(input);
+			p2 += 2;
+			turns += 1;
+			CheckWin();
+		}
+		else
+		{
+			TryAgain();
+		}			
 	}
 	
+	/*
+	 * The Block Method,
+	 * The Block Method will be exactly like the CheckWin Method's for Loops
+	 * The only difference instead of matching up 4 and winning, the bot will
+	 * count to 3 and then it will block
+	 */
 	public static void Block()
 	{
-		
+		//here is how we check for vertical wins for P1
+				for(int col = 0; col <= 6; col++)
+				{
+					int counter = 0;
+					for(int row = 0; row <= 5; row++)
+					{
+						if(gameBoard[row][col] == "R")
+							counter++;
+						else
+							counter = 0;
+						//when the counter is 4 they should win
+						if(counter == 3 && board[])
+						{
+							winner = "Player 1";
+							win = true;
+							break;
+						}
+					}
+				}
+				
+				
+				
+				//here is how we will check the horizontal wins for P1
+				for(int col = 0; col <= 5; col++)
+				{
+					int counter = 0;
+					for(int row = 0; row <= 6; row++)
+					{
+						if(gameBoard[col][row] == "R")
+							counter++;
+						else
+							counter = 0;
+						//when the counter is 4 they should win
+						if(counter == 3)
+						{
+							winner = "Player 1";
+							win = true;
+							break;
+						}
+					}
+				}
+			
 	}
 	
+	/*
+	 * The Win Method,
+	 * The Win Method will be exactly like the CheckWin Method's for Loops
+	 * The only difference instead of matching up 4 and winning, the bot will
+	 * count to 3 and then it will try to win
+	 */
 	public static void Win()
 	{
+		//here is how we will check for vertical wins for P2
+		for(int col = 0; col <= 6; col++)
+		{
+			int counter = 0;
+			for(int row = 0; row <= 5; row++)
+			{
+				if(gameBoard[row][col] == "B")
+					counter++;
+				else
+					counter = 0;
+				//when the counter is 4 they should win
+				if(counter == 3)
+				{
+					winner = "Player 2";
+					win = true;
+					break;
+				}
+			}
+		}
 		
+		//here is how we will check the horizontal wins for P2
+		for(int col = 0; col <= 5; col++)
+		{
+			int counter = 0;
+			for(int row = 0; row <= 6; row++)
+			{
+				if(gameBoard[col][row] == "B")
+					counter++;
+				else
+					counter = 0;
+				//when the counter is 4 they should win
+				if(counter == 3)
+				{
+					winner = "Player 2";
+					win = true;
+					break;
+				}
+			}
+		}
 	}
 
 }
