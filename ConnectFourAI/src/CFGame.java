@@ -63,7 +63,6 @@ public class CFGame
 			}
 			System.out.println("|");
 		}
-		gameboard[5][3] = "X";
 		
 		
 	}
@@ -224,6 +223,9 @@ public class CFGame
 			}
 		}
 		
+		//here is how we will check for diagonal wins (from bottom left to top right) for P1
+		
+		
 		//this statement will only be true if the counter is right 
 		if(win == true)
 			End();
@@ -267,13 +269,14 @@ public class CFGame
 		int max = 6;
 		int min = 0;
 		int range = max - min + 1;
-		
+		Symbol = "B";
+		Block();
+		Win();
 		
 		System.out.println("Bot's Turn");
-		input = (int)(Math.random() * range + min)
+		input = (int)(Math.random() * range + min);
 		if(input < 7 && input >= 0)
 		{
-			Symbol = "B";
 			PositionCheck(input);
 			p2 += 2;
 			turns += 1;
@@ -304,11 +307,13 @@ public class CFGame
 						else
 							counter = 0;
 						//when the counter is 4 they should win
-						if(counter == 3 && board[])
+						if(counter == 3 && gameBoard[row][col+1].isEmpty())
 						{
-							winner = "Player 1";
-							win = true;
-							break;
+							PositionCheck(col);
+							p2 += 2;
+							turns += 1;
+							CheckWin();
+							PlayGame();
 						}
 					}
 				}
@@ -326,11 +331,13 @@ public class CFGame
 						else
 							counter = 0;
 						//when the counter is 4 they should win
-						if(counter == 3)
+						if(counter == 3 && gameBoard[row+1][col].isEmpty())
 						{
-							winner = "Player 1";
-							win = true;
-							break;
+							PositionCheck(row+1);
+							p2 += 2;
+							turns += 1;
+							CheckWin();
+							PlayGame();
 						}
 					}
 				}
@@ -356,7 +363,7 @@ public class CFGame
 				else
 					counter = 0;
 				//when the counter is 4 they should win
-				if(counter == 3)
+				if(counter == 3 && gameBoard[row][col].isEmpty())
 				{
 					winner = "Player 2";
 					win = true;
@@ -376,7 +383,7 @@ public class CFGame
 				else
 					counter = 0;
 				//when the counter is 4 they should win
-				if(counter == 3)
+				if(counter == 3 && gameBoard[row][col].isEmpty())
 				{
 					winner = "Player 2";
 					win = true;
